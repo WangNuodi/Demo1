@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysOrderMapper">
+    
+    <resultMap type="SysOrder" id="SysOrderResult">
+        <result property="orderId"    column="order_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="goodsName"    column="goods_name"    />
+        <result property="goodsKind"    column="goods_kind"    />
+        <result property="tradeRule"    column="trade_rule"    />
+        <result property="tradeAddress"    column="trade_address"    />
+        <result property="tradeMoney"    column="trade_money"    />
+        <result property="tradeMoneyService"    column="trade_money_service"    />
+        <result property="tradeMoneyMe"    column="trade_money_me"    />
+        <result property="tradeMoneyYou"    column="trade_money_you"    />
+        <result property="tradePassword"    column="trade_password"    />
+        <result property="tradePasswordYou"    column="trade_password_you"    />
+        <result property="tradeCode"    column="trade_code"    />
+        <result property="tradeUrl"    column="trade_url"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="status"    column="status"    />
+        <result property="recive"    column="recive"    />
+        <result property="send"    column="send"    />
+        <result property="define"    column="define"    />
+    </resultMap>
+
+    <sql id="selectSysOrderVo">
+        select order_id, user_id, goods_name, goods_kind, trade_rule, trade_address, trade_money, trade_money_service, trade_money_me, trade_money_you, trade_password, trade_password_you, trade_code, trade_url, create_time, update_time, status , recive,define,send from sys_order
+    </sql>
+
+    <select id="selectSysOrderList" parameterType="SysOrder" resultMap="SysOrderResult">
+        <include refid="selectSysOrderVo"/>
+        <where>
+            <if test="orderId != null "> and order_id = #{orderId}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="goodsName != null  and goodsName != ''"> and goods_name like concat('%', #{goodsName}, '%')</if>
+            <if test="goodsKind != null "> and goods_kind = #{goodsKind}</if>
+            <if test="tradeRule != null  and tradeRule != ''"> and trade_rule = #{tradeRule}</if>
+            <if test="tradeAddress != null  and tradeAddress != ''"> and trade_address = #{tradeAddress}</if>
+            <if test="tradeMoney != null and tradeMoney != 0"> and trade_money = #{tradeMoney}</if>
+            <if test="tradeMoneyService != null and tradeMoneyService != 0"> and trade_money_service = #{tradeMoneyService}</if>
+            <if test="tradeMoneyMe != null and tradeMoneyMe != 0"> and trade_money_me = #{tradeMoneyMe}</if>
+            <if test="tradeMoneyYou != null and tradeMoneyYou != 0"> and trade_money_you = #{tradeMoneyYou}</if>
+            <if test="tradePassword != null  and tradePassword != ''"> and trade_password = #{tradePassword}</if>
+            <if test="tradePasswordYou != null  and tradePasswordYou != ''"> and trade_password_you = #{tradePasswordYou}</if>
+            <if test="tradeCode != null  and tradeCode != ''"> and trade_code = #{tradeCode}</if>
+            <if test="tradeUrl != null  and tradeUrl != ''"> and trade_url = #{tradeUrl}</if>
+            <if test="status != null and status != ''"> and status = #{status}</if>
+            <if test="recive != null and recive != ''"> and recive = #{recive}</if>
+            <if test="send != null and send != ''"> and send = #{send}</if>
+            <if test="define != null and define != ''"> and define = #{define}</if>
+        </where>
+        order by order_id desc
+    </select>
+    
+    <select id="selectSysOrderByOrderId" parameterType="Long" resultMap="SysOrderResult">
+        <include refid="selectSysOrderVo"/>
+        where order_id = #{orderId}
+    </select>
+        
+    <insert id="insertSysOrder" parameterType="SysOrder" useGeneratedKeys="true" keyProperty="orderId">
+        insert into sys_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="goodsName != null">goods_name,</if>
+            <if test="goodsKind != null">goods_kind,</if>
+            <if test="tradeRule != null">trade_rule,</if>
+            <if test="tradeAddress != null">trade_address,</if>
+            <if test="tradeMoney != null and tradeMoney != 0">trade_money,</if>
+            <if test="tradeMoneyService != null and tradeMoneyService != 0">trade_money_service,</if>
+            <if test="tradeMoneyMe != null and tradeMoneyMe != 0">trade_money_me,</if>
+            <if test="tradeMoneyYou != null and tradeMoneyYou != 0">trade_money_you,</if>
+            <if test="tradePassword != null">trade_password,</if>
+            <if test="tradePasswordYou != null">trade_password_you,</if>
+            <if test="tradeCode != null">trade_code,</if>
+            <if test="tradeUrl != null">trade_url,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="status != null">status,</if>
+            <if test="recive != null">recive,</if>
+            <if test="send != null">send,</if>
+            <if test="define != null">define,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="goodsName != null">#{goodsName},</if>
+            <if test="goodsKind != null">#{goodsKind},</if>
+            <if test="tradeRule != null">#{tradeRule},</if>
+            <if test="tradeAddress != null">#{tradeAddress},</if>
+            <if test="tradeMoney != null and tradeMoney != 0">#{tradeMoney},</if>
+            <if test="tradeMoneyService != null and tradeMoneyService != 0">#{tradeMoneyService},</if>
+            <if test="tradeMoneyMe != null and tradeMoneyMe != 0">#{tradeMoneyMe},</if>
+            <if test="tradeMoneyYou != null and tradeMoneyYou != 0">#{tradeMoneyYou},</if>
+            <if test="tradePassword != null">#{tradePassword},</if>
+            <if test="tradePasswordYou != null">#{tradePasswordYou},</if>
+            <if test="tradeCode != null">#{tradeCode},</if>
+            <if test="tradeUrl != null">#{tradeUrl},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="status != null">#{status},</if>
+            <if test="recive != null">#{recive},</if>
+            <if test="send != null">#{send},</if>
+            <if test="define != null">#{define},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysOrder" parameterType="SysOrder">
+        update sys_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="goodsName != null">goods_name = #{goodsName},</if>
+            <if test="goodsKind != null">goods_kind = #{goodsKind},</if>
+            <if test="tradeRule != null">trade_rule = #{tradeRule},</if>
+            <if test="tradeAddress != null">trade_address = #{tradeAddress},</if>
+            <if test="tradeMoney != null and tradeMoney != 0">trade_money = #{tradeMoney},</if>
+            <if test="tradeMoneyService != null and tradeMoneyService != 0">trade_money_service = #{tradeMoneyService},</if>
+            <if test="tradeMoneyMe != null and tradeMoneyMe != 0">trade_money_me = #{tradeMoneyMe},</if>
+            <if test="tradeMoneyYou != null and tradeMoneyYou != 0">trade_money_you = #{tradeMoneyYou},</if>
+            <if test="tradePassword != null">trade_password = #{tradePassword},</if>
+            <if test="tradePasswordYou != null">trade_password_you = #{tradePasswordYou},</if>
+            <if test="tradeCode != null">trade_code = #{tradeCode},</if>
+            <if test="tradeUrl != null">trade_url = #{tradeUrl},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="recive != null">recive = #{recive},</if>
+            <if test="send != null">send = #{send},</if>
+            <if test="define != null">define = #{define},</if>
+        </trim>
+        where order_id = #{orderId}
+    </update>
+
+    <delete id="deleteSysOrderByOrderId" parameterType="Long">
+        delete from sys_order where order_id = #{orderId}
+    </delete>
+
+    <delete id="deleteSysOrderByOrderIds" parameterType="String">
+        delete from sys_order where order_id in 
+        <foreach item="orderId" collection="array" open="(" separator="," close=")">
+            #{orderId}
+        </foreach>
+    </delete>
+</mapper>

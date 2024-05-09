@@ -1,0 +1,7 @@
+FROM registry.cn-hangzhou.aliyuncs.com/baifeng_public/nginxxx:1
+
+COPY ruoyi-ui/dist/ /usr/share/nginx/html
+COPY ruoyi-ui/conf.d/ /etc/nginx/conf.d
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
